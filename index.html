@@ -3,134 +3,235 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>ClipNest</title>
-
+  <title>ClipNest - Simple Video Sharing</title>
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     body {
-      background: #f5f6f8;
-      color: #222;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
     }
 
+    /* Header */
     header {
-      background: #111827;
-      color: white;
-      padding: 18px 20px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      padding: 40px 20px;
       text-align: center;
+      border-bottom: 1px solid #1e293b;
     }
 
     header h1 {
-      font-size: 28px;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1px;
     }
 
     header p {
-      margin-top: 6px;
-      color: #cbd5e1;
-      font-size: 14px;
+      margin-top: 8px;
+      color: #94a3b8;
+      font-size: 16px;
     }
 
+    /* Container */
     .container {
-      max-width: 700px;
-      margin: 35px auto;
-      padding: 0 18px;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 28px 22px;
-      text-align: center;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 25px;
+      color: #f1f5f9;
+      font-weight: 600;
     }
 
-    .thumbnail {
-      height: 220px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #1f2937, #4b5563);
+    /* Posts Grid */
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* Single Post Card */
+    .post {
+      background: #1e293b;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid #334155;
+    }
+
+    .post:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .post-image {
+      height: 180px;
+      background: linear-gradient(135deg, #334155, #1e293b);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 48px;
-      margin-bottom: 22px;
-    }
-
-    h2 {
-      margin-bottom: 10px;
-    }
-
-    .description {
+      font-size: 50px;
       color: #64748b;
-      line-height: 1.6;
-      margin-bottom: 22px;
+      position: relative;
     }
 
-    .watch-btn {
-      display: inline-block;
-      background: #111827;
+    .post-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-icon {
+      position: absolute;
+      background: rgba(0,0,0,0.6);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
       color: white;
-      text-decoration: none;
-      padding: 13px 28px;
+    }
+
+    .post-content {
+      padding: 20px;
+    }
+
+    .post-content h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #f8fafc;
+    }
+
+    .post-content p {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 11px 22px;
       border-radius: 10px;
-      font-weight: bold;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
     }
 
-    .watch-btn:hover {
-      opacity: 0.85;
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
     }
 
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid #475569;
+      margin-left: 10px;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      color: white;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      color: #94a3b8;
-      font-size: 13px;
-      padding: 25px;
+      padding: 40px 20px;
+      color: #64748b;
+      font-size: 14px;
+      border-top: 1px solid #1e293b;
+      margin-top: 50px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 28px;
+      }
+      .posts {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-
 <body>
 
+  <!-- Header -->
   <header>
     <h1>ClipNest</h1>
-    <p>Simple &amp; clean video sharing</p>
+    <p>Simple & Clean Video Sharing</p>
   </header>
 
-  <main class="container">
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="section-title">Latest Posts</h2>
 
-    <div class="card">
+    <div class="posts">
 
-      <div class="thumbnail">
-        ▶
+      <!-- Post 1 -->
+      <div class="post">
+        <div class="post-image">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="post-content">
+          <h3>Featured Video</h3>
+          <p>Watch the latest video. Click below to open.</p>
+          <a href="https://1024terabox.com/s/15z6tcFrQfTcunSy5tkEoeQ" class="btn btn-primary" target="_blank">Watch Now</a>
+          <a href="#" class="btn btn-secondary">Share</a>
+        </div>
       </div>
 
-      <h2>Featured Video</h2>
+      <!-- Post 2 -->
+      <div class="post">
+        <div class="post-image">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="post-content">
+          <h3>New Clip</h3>
+          <p>Another interesting video post. Coming soon more content.</p>
+          <a href="#" class="btn btn-primary">Watch Now</a>
+          <a href="#" class="btn btn-secondary">Share</a>
+        </div>
+      </div>
 
-      <p class="description">
-        Watch the video using the button below.
-      </p>
-
-      <!-- Replace the URL below with your actual TeraBox share link -->
-      <a
-        class="watch-btn"
-        href="https://1024terabox.com/s/15z6tcFrQfTcunSy5tkEoeQ"
-        target="_blank"
-        rel="noopener noreferrer">
-        ▶ Watch Video
-      </a>
+      <!-- Post 3 -->
+      <div class="post">
+        <div class="post-image">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="post-content">
+          <h3>Special Video</h3>
+          <p>Extra content for you. More posts will be added soon.</p>
+          <a href="#" class="btn btn-primary">Watch Now</a>
+          <a href="#" class="btn btn-secondary">Share</a>
+        </div>
+      </div>
 
     </div>
+  </div>
 
-  </main>
-
+  <!-- Footer -->
   <footer>
-    © 2026 ClipNest. All rights reserved.
+    © 2026 ClipNest • Simple Video Sharing
   </footer>
 
 </body>
